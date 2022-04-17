@@ -2,12 +2,14 @@ from typing import Any, List, Optional
 
 from  domain.userManagment.userSchema import UserCreateSchema, UserDBSchema, UserUpdateSchema
 
-
 class UserService:
-    def __init__(self, user_queries: Any):
+    def __init__(self, user_queries: Any, auth_service: Any):
         self.__user_queries = user_queries
+        self.__auth_service = auth_service
 
     def create_user(self, user: UserCreateSchema) -> UserDBSchema:
+        encrypt_pass = self.__auth_service.bcrypt(user.password)
+        user.password = encrypt_pass
         new_user = self.__user_queries.create_user(user)
         return UserDBSchema.from_orm(new_user)
 
@@ -20,6 +22,9 @@ class UserService:
 
     def update_user(self, user_id: int, new_user: UserUpdateSchema) -> UserDBSchema:
         old_user = self.__user_queries.get_user_byid(user_id)
+        if 'password' in new_user.dict(exclude_unset=True):
+            encrypt_pass = self.__auth_service.bcrypt(new_user.password)
+            new_user.password = encrypt_pass
         user_updated = self.__user_queries.update_user(old_user, new_user)
         return UserDBSchema.from_orm(user_updated)
 
