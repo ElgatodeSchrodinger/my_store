@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from fastapi import APIRouter, HTTPException, Depends
+from fastapi import APIRouter, HTTPException, Depends, status
 
 from  api.utils import get_user_services
 from  domain.userManagment.userSchema import UserCreateSchema, UserDBSchema, UserUpdateSchema
