@@ -1,12 +1,11 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Float, Boolean, Enum, update
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Enum
 from sqlalchemy.sql import func
 from typing import List
 from fastapi.encoders import jsonable_encoder
-from  core.db import Base, engine
+from  core.db import Base, engine, get_db
 from  domain.userManagment.queriesInterface import IUserQueries
 from  domain.userManagment.userSchema import UserCreateSchema, UserUpdateSchema
 from  domain.userManagment.userConstants import UserRoles
-from core.db import get_db
 
 class UserModel(Base):
     __tablename__ = "users"

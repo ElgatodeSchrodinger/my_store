@@ -57,6 +57,6 @@ class UserService:
         user_scope = payload['scopes']
         user = self.__user_queries.get_user_byemail(user_email)
         for scope in security_scopes.scopes:
-            if scope not in user_scope:
-                return False
-        return user
+            if scope in user_scope:
+                return user
+        return False
