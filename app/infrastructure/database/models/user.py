@@ -56,3 +56,9 @@ class UserQueries(IUserQueries):
         with self.session as session:
             user_obj = session.query(UserModel).filter_by(user_id=user_id, is_active=True).first()
         return user_obj
+
+    def get_user_byemail(self, user_email: str) -> UserModel:
+
+        with self.session as session:
+            user_obj = session.query(UserModel).filter_by(email=user_email, is_active=True).first()
+        return user_obj

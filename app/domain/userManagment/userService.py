@@ -31,3 +31,19 @@ class UserService:
     def remove_user(self, user_id: int) -> UserDBSchema:
         user_removed = self.__user_queries.delete_user(user_id)
         return UserDBSchema.from_orm(user_removed)
+
+    def get_user_by_email(self, user_email: str) -> Optional[UserDBSchema]:
+        user = self.__user_queries.get_user_byemail(user_email)
+        if user:
+            return UserDBSchema.from_orm(user)
+        else:
+            return None
+
+    def login(self, email: str, req_pass: str) -> str:
+        user = self.__user_queries.get_user_byemail(email)
+        if not user:
+            return False
+        if not self.__auth_service.verify(user.password, req_pass):
+            return False
+        access_token = self.__auth_service.create_access_token(data={'sub': user.email})
+        return access_token
