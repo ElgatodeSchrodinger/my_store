@@ -55,7 +55,7 @@ def update_product(
     ) -> ProductDBSchema:
     try:
         product_updated: ProductDBSchema = product_service.update_product(product_id, new_product)
-        update_event = UpdateProduct(user_id=current_user.user_id, product_id=product_id, change=new_product, date=datetime.now())
+        update_event = UpdateProduct(user_id=current_user.user_id, product_id=product_id, change=new_product.dict(exclude_unset=True), date=datetime.now())
         return product_updated
     finally:
         message_bus.handle(update_event)

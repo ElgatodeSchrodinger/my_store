@@ -19,3 +19,4 @@ python-jose
 passlib
 bcrypt
 python-multipart
+boto3
