@@ -12,6 +12,9 @@ class AuthService:
     def bcrypt(self, password: str) -> str:
         return self.__hash.bcrypt(password)
 
+    def decode(self, token: str) -> str:
+        return self.__hash.decode(token)
+
     def verify(self, hashed_password: str, plain_password: str) -> str:
         return self.__hash.verify(plain_password, hashed_password)
 

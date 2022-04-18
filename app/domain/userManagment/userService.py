@@ -1,5 +1,5 @@
 from typing import Any, List, Optional
-
+from fastapi.security import SecurityScopes
 from  domain.userManagment.userSchema import UserCreateSchema, UserDBSchema, UserUpdateSchema
 
 class UserService:
@@ -45,5 +45,18 @@ class UserService:
             return False
         if not self.__auth_service.verify(user.password, req_pass):
             return False
-        access_token = self.__auth_service.create_access_token(data={'sub': user.email})
+        access_token = self.__auth_service.create_access_token(
+            data={'sub': user.email, 'scopes': user.rol.value})
         return access_token
+    
+    def get_current_user(self, security_scopes: SecurityScopes, token: str) -> Optional[UserDBSchema]:
+        payload = self.__auth_service.decode(token)
+        if 'sub' not in payload:
+            return False
+        user_email = payload['sub']
+        user_scope = payload['scopes']
+        user = self.__user_queries.get_user_byemail(user_email)
+        for scope in security_scopes.scopes:
+            if scope not in user_scope:
+                return False
+        return user

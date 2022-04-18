@@ -1,4 +1,5 @@
 from typing import List, Optional
+from domain.auth.authSchema import Token
 
 from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
@@ -11,7 +12,7 @@ router = APIRouter(
     tags=['authentication']
 )
 
-@router.post('/token')
+@router.post('/token', response_model=Token)
 def generate_token(request: OAuth2PasswordRequestForm = Depends(), user_service: UserService = Depends(get_user_services)):
     access_token = user_service.login(request.username, request.password)
     if not access_token:
