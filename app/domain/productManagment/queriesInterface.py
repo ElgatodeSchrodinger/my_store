@@ -1,13 +1,15 @@
-
 # used only for python >=3.6
 from __future__ import annotations
 
 from abc import abstractmethod
 from typing import TYPE_CHECKING, List
-from domain.productManagment.productSchema import ProductCreateSchema, ProductUpdateSchema
+from domain.productManagment.productSchema import (
+    ProductCreateSchema,
+    ProductUpdateSchema,
+)
 
 if TYPE_CHECKING:
-    from  infrastructure.database.models.product import ProductModel
+    from infrastructure.database.models.product import ProductModel
 
 
 class IProductQueries:
@@ -16,7 +18,9 @@ class IProductQueries:
         raise NotImplementedError
 
     @abstractmethod
-    async def update_product(self, old_user: ProductModel, new_user: ProductUpdateSchema) -> ProductModel:
+    async def update_product(
+        self, old_user: ProductModel, new_user: ProductUpdateSchema
+    ) -> ProductModel:
         raise NotImplementedError
 
     @abstractmethod

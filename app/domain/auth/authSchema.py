@@ -5,6 +5,7 @@ from infrastructure.auth.jwt import oauth2_scheme
 
 AuthSchema = oauth2_scheme
 
+
 class Token(BaseModel):
     access_token: str
     token_type: str

@@ -17,7 +17,8 @@ def send_update_product_notification(event: events.UpdateProduct):
     email_notifier = get_email_notifier_service()
     email_notifier.send_notification_to_admins(event=event)
 
+
 HANDLERS = {
     events.ViewProductByAnon: [save_view_product_by_anon_user],
-    events.UpdateProduct: [send_update_product_notification]
+    events.UpdateProduct: [send_update_product_notification],
 }  # type: Dict[Type[events.Event], List[Callable]]

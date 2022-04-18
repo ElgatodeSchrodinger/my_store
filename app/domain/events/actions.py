@@ -8,13 +8,12 @@ class INotifier:
 
 
 class IEmailNotifier(INotifier):
-
     @abstractmethod
     def send_notification(self, event: Event):
         raise NotImplementedError
 
-class EmailNotifierService:
 
+class EmailNotifierService:
     def __init__(self, email_service, user_service) -> None:
         self.__email_service = email_service
         self.__user_service = user_service
@@ -25,13 +24,12 @@ class EmailNotifierService:
 
 
 class IInformationSaver:
-
     @abstractmethod
     def save_details(self, event: Event):
         raise NotImplementedError
-    
-class InformationSaverService:
 
+
+class InformationSaverService:
     def __init__(self, saver_service) -> None:
         self.__saver_service = saver_service
 

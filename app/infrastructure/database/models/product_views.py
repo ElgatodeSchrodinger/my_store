@@ -5,20 +5,21 @@ from domain.events.actions import IInformationSaver
 
 from core.db import Base, engine, get_db
 
+
 class ProductViewsModel(Base):
-    __tablename__ = 'product_views'
+    __tablename__ = "product_views"
 
     id = Column(Integer, autoincrement=True, primary_key=True)
     user_id = Column(Integer, nullable=False)
     product_id = Column(Integer, nullable=False)
     date = Column(DateTime(timezone=True), nullable=False)
 
-class InformationSaver(IInformationSaver):
 
+class InformationSaver(IInformationSaver):
     def __init__(self):
         Base.metadata.create_all(bind=engine)
         self.session = next(get_db())
-    
+
     def save_details(self, event: Event):
         product_view_data = event.__dict__
         product_view_obj = ProductViewsModel(**product_view_data)

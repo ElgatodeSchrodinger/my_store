@@ -1,18 +1,17 @@
-
 from typing import List
 from domain.events.actions import IEmailNotifier
 from domain.events.events import Event
 
 
 class FakeNotifier(IEmailNotifier):
-    
     def send_notification(self, event: Event, receivers: List[str]):
-        print(f"Se lanzó la notificación de la actualizacion del product {event.product_id} para los emails: {','.join(receivers)}")
+        print(
+            f"Se lanzó la notificación de la actualizacion del product {event.product_id} para los emails: {','.join(receivers)}"
+        )
         print(self.generate_html(event))
 
     def generate_html(self, event_data):
-        return (
-            f"""
+        return f"""
             <html>
                 <head></head>
                 <h1 style='text-align:center'>This is an update notification</h1>
@@ -23,4 +22,3 @@ class FakeNotifier(IEmailNotifier):
             </html>
         
         """
-        )

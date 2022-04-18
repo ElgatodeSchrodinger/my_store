@@ -1,7 +1,12 @@
 from typing import Any, List, Optional
 from domain.events.events import UpdateProduct
-from domain.productManagment.productSchema import ProductCreateSchema, ProductDBSchema, ProductUpdateSchema
+from domain.productManagment.productSchema import (
+    ProductCreateSchema,
+    ProductDBSchema,
+    ProductUpdateSchema,
+)
 from datetime import datetime
+
 
 class ProductService:
     def __init__(self, product_queries: Any):
@@ -19,9 +24,13 @@ class ProductService:
         else:
             return None
 
-    def update_product(self, product_id: int, new_product: ProductUpdateSchema) -> ProductDBSchema:
+    def update_product(
+        self, product_id: int, new_product: ProductUpdateSchema
+    ) -> ProductDBSchema:
         old_product = self.__product_queries.get_product_byid(product_id)
-        product_updated = self.__product_queries.update_product(old_product, new_product)
+        product_updated = self.__product_queries.update_product(
+            old_product, new_product
+        )
         return ProductDBSchema.from_orm(product_updated)
 
     def remove_product(self, product_id: int) -> ProductDBSchema:
