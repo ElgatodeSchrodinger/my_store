@@ -61,3 +61,10 @@ class UserQueries(IUserQueries):
         with self.session as session:
             user_obj = session.query(UserModel).filter_by(email=user_email, is_active=True).first()
         return user_obj
+    
+    def get_admin_emails(self):
+        with self.session as session:
+            admin_users = session.query(UserModel).filter_by(rol=UserRoles.admin).all()
+        return [
+            admin.email for admin in admin_users
+        ]

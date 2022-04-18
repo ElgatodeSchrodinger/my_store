@@ -60,3 +60,7 @@ class UserService:
             if scope in user_scope:
                 return user
         return False
+
+    def get_admin_emails(self):
+        emails = self.__user_queries.get_admin_emails()
+        return emails

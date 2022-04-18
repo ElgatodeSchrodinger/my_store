@@ -15,7 +15,7 @@ def save_view_product_by_anon_user(event: events.ViewProductByAnon):
 
 def send_update_product_notification(event: events.UpdateProduct):
     email_notifier = get_email_notifier_service()
-    email_notifier.send_notification(event=event)
+    email_notifier.send_notification_to_admins(event=event)
 
 HANDLERS = {
     events.ViewProductByAnon: [save_view_product_by_anon_user],

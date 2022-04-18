@@ -26,3 +26,11 @@ class IUserQueries:
     @abstractmethod
     async def get_user_byid(self, user_id: int) -> UserModel:
         raise NotImplementedError
+    
+    @abstractmethod
+    async def get_user_byemail(self, user_email: str) -> UserModel:
+        raise NotImplementedError
+
+    @abstractmethod
+    async def get_admin_emails(self) -> List[str]:
+        raise NotImplementedError

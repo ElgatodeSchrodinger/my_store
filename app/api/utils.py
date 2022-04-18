@@ -14,7 +14,7 @@ def get_product_services() -> UserService:
     return ProductService(ProductQueries())
 
 def get_email_notifier_service() -> EmailNotifierService:
-    return EmailNotifierService(FakeNotifier())
+    return EmailNotifierService(FakeNotifier(), UserQueries())
 
 def get_info_saver_service() -> InformationSaverService:
     return InformationSaverService(InformationSaver())
