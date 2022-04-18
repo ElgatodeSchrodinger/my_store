@@ -1,5 +1,7 @@
 from typing import Any, List, Optional
+from domain.events.events import UpdateProduct
 from domain.productManagment.productSchema import ProductCreateSchema, ProductDBSchema, ProductUpdateSchema
+from datetime import datetime
 
 class ProductService:
     def __init__(self, product_queries: Any):
