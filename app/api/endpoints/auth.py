@@ -5,11 +5,6 @@ from fastapi import APIRouter, HTTPException, Depends, status
 from fastapi.security.oauth2 import OAuth2PasswordRequestForm
 
 from api.utils import get_user_services
-from domain.userManagment.userSchema import (
-    UserCreateSchema,
-    UserDBSchema,
-    UserUpdateSchema,
-)
 from domain.userManagment.userService import UserService
 
 router = APIRouter(tags=["authentication"])
