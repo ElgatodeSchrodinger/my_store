@@ -19,7 +19,6 @@ class SESNotifier(IEmailNotifier):
         response = self.ses_client.verify_email_identity(
             EmailAddress="admin@example.com"
         )
-        print(response)
 
     def send_notification(self, event: Event, receivers: List[str]):
         sender = "Administrator <admin@example.com>"

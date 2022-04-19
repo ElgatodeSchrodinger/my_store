@@ -14,7 +14,6 @@ class ProductService:
 
     def create_product(self, product: ProductCreateSchema) -> ProductDBSchema:
         new_product = self.__product_queries.create_product(product)
-        print(new_product)
         return ProductDBSchema.from_orm(new_product)
 
     def get_product_by_id(self, product_id: int) -> Optional[ProductDBSchema]:

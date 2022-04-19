@@ -1,11 +1,19 @@
 from typing import Any, List
 from domain.productManagment.productService import ProductService
-from domain.productManagment.productSchema import ProductCreateSchema, ProductDBSchema, ProductUpdateSchema
+from domain.productManagment.productSchema import (
+    ProductCreateSchema,
+    ProductDBSchema,
+    ProductUpdateSchema,
+)
 from infrastructure.database.models.product import ProductModel
 
 import pytest
 
-from domain.productManagment.productSchema import ProductCreateSchema, ProductDBSchema, ProductUpdateSchema
+from domain.productManagment.productSchema import (
+    ProductCreateSchema,
+    ProductDBSchema,
+    ProductUpdateSchema,
+)
 from domain.productManagment.productService import ProductService
 from infrastructure.database.models.product import ProductModel
 
@@ -23,7 +31,9 @@ class ProductQueriesDummy:
     def create_product(self, product: Any) -> ProductModel:
         return PRODUCT_MODEL
 
-    def update_product(self, old_product: Any, new_product: Any) -> ProductModel:
+    def update_product(
+        self, old_product: Any, new_product: Any
+    ) -> ProductModel:
         return PRODUCT_MODEL
 
     def delete_product(self, product_id: int) -> ProductModel:
@@ -63,7 +73,6 @@ def product_update_schema() -> ProductUpdateSchema:
 
 
 class TestProductService:
-    
     def test_product_create_valide(
         self, product_model: ProductModel, product_schema: ProductCreateSchema
     ) -> None:
@@ -80,7 +89,9 @@ class TestProductService:
         )
 
     def test_product_update_product(
-        self, product_model: ProductModel, product_update_schema: ProductUpdateSchema
+        self,
+        product_model: ProductModel,
+        product_update_schema: ProductUpdateSchema,
     ) -> None:
         product_service = ProductService(ProductQueriesDummy())
 

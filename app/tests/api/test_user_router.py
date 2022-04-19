@@ -14,6 +14,7 @@ from infrastructure.database.models.user import UserModel
 
 FAKE_TOKEN = "eyJhbG.arGiJVjDp9lRezwxx2qLU33TG5O892nozvgKv1t_iHg"
 
+
 def create_test_app() -> FastAPI:
     app = FastAPI()
     app.include_router(api_router)
@@ -44,10 +45,8 @@ USER_DB_SCHEMA = UserDBSchema(
 )
 
 
-
 class UserServiceDummy:
     def create_user(self, user: Any) -> UserModel:
-        print(USER_DB_SCHEMA)
         return USER_DB_SCHEMA
 
     def get_user_by_id(self, id: int) -> UserModel:
@@ -63,11 +62,16 @@ class UserServiceDummy:
 def get_user_services_dummy() -> UserServiceDummy:
     return UserServiceDummy()
 
+
 def get_current_user_from_service_dummy() -> UserModel:
     return USER_MODEL
 
+
 app.dependency_overrides[get_user_services] = get_user_services_dummy
-app.dependency_overrides[get_current_user_from_service] = get_current_user_from_service_dummy
+app.dependency_overrides[
+    get_current_user_from_service
+] = get_current_user_from_service_dummy
+
 
 @pytest.fixture
 def user_model() -> UserModel:
@@ -85,9 +89,8 @@ def user_schema() -> UserDBSchema:
         created_date="1/1/2020",
     )
 
+
 class TestUserRouter:
-
-
     def test_user_create_valide(
         self, user_model: UserModel, user_schema: UserDBSchema
     ) -> None:
@@ -99,10 +102,9 @@ class TestUserRouter:
                 "full_name": "test",
                 "password": "test",
                 "is_active": True,
-                "rol": 'admin',
+                "rol": "admin",
                 "created_date": "1/1/2020",
             },
-
         )
         assert response.status_code == status.HTTP_200_OK
         assert UserDBSchema(**response.json()) == user_schema
@@ -118,10 +120,10 @@ class TestUserRouter:
                 "full_name": "test",
                 "password": "test",
                 "is_active": True,
-                "rol": 'admin',
+                "rol": "admin",
                 "created_date": "1/1/2020",
             },
-            headers={"Authorization": f"Bearer {FAKE_TOKEN}"}
+            headers={"Authorization": f"Bearer {FAKE_TOKEN}"},
         )
         assert response.status_code == status.HTTP_200_OK
         assert UserDBSchema(**response.json()) == user_schema
@@ -131,9 +133,8 @@ class TestUserRouter:
     ) -> None:
 
         response = client.delete(
-            "/users/1",
-            headers={"Authorization": f"Bearer {FAKE_TOKEN}"}
-            )
+            "/users/1", headers={"Authorization": f"Bearer {FAKE_TOKEN}"}
+        )
         assert response.status_code == status.HTTP_200_OK
         assert UserDBSchema(**response.json()) == user_schema
 
@@ -142,8 +143,7 @@ class TestUserRouter:
     ) -> None:
 
         response = client.get(
-            "/users/1",
-            headers={"Authorization": f"Bearer {FAKE_TOKEN}"}
-            )
+            "/users/1", headers={"Authorization": f"Bearer {FAKE_TOKEN}"}
+        )
         assert response.status_code == status.HTTP_200_OK
         assert UserDBSchema(**response.json()) == user_schema
