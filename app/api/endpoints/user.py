@@ -23,7 +23,7 @@ router = APIRouter()
 def create_user(
     user: UserCreateSchema,
     user_service: UserService = Depends(get_user_services),
-    token: str = Depends(AuthSchema),
+    # token: str = Depends(AuthSchema),
     # current_user: UserDBSchema = Security(
     #     get_current_user_from_service, scopes=[UserRoles.admin.value]
     # ),
