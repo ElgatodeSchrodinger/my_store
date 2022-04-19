@@ -1,5 +1,3 @@
-## Template to build an API Rest using FastAPI and Postgresql
-
 # Project Name: My Store
 
 ## Description
