@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr
 
-from  domain.userManagment.userConstants import UserRoles
+from domain.userManagment.userConstants import UserRoles
 
 
 # Shared properties

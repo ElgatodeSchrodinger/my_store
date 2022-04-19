@@ -5,6 +5,14 @@ from pydantic import BaseSettings, validator, PostgresDsn
 
 class Settings(BaseSettings):
 
+    JWT_SECRET_KEY: str
+    ALGORITHM: str
+    ACCESS_TOKEN_EXPIRE_MINUTES: int
+
+    AWS_SES_REGION: Optional[str] = None
+    AWS_SES_ACCESS_KEY: Optional[str] = None
+    AWS_SES_SECRET_KEY: Optional[str] = None
+
     POSTGRES_SERVER: str
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
